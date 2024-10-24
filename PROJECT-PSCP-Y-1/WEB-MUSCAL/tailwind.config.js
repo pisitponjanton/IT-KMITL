@@ -27,9 +27,11 @@ module.exports = {
         img1:"url('/img/img-1/image1.png')",
         img2:"url('/img/img-1/image2.png')",
         img11:"url('/img/img-2/image1.png')",
+        van:"url('/img/img-3/van.png')",
         bb: 'linear-gradient(135deg, #031420 73%, #07273D 100%)',
         bb1: 'linear-gradient(90deg, #102A46 0%, #1A4472 51%,#102A46 100%)',
         bb2: 'linear-gradient(180deg, #073575 0%,#ACACAC 100%)',
+        bb3: 'linear-gradient(90deg, #2D5E93 3%,#102A46 72%)',
       },
       fontFamily: {
         'inter-r': ['inter-r', 'sans-serif'],
@@ -40,9 +42,19 @@ module.exports = {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        scale: {
+          '0%': { transform: 'translateX(-100vw)' },
+          '100%': { transform: 'translateX(0vw)' },
+        },
+        scale1: {
+          '0%': { transform: 'translateX(100vw)' },
+          '100%': { transform: 'translateX(0vw)' },
+        },
       },
       animation:{
         sp1: 'sp1 1s ease-in-out',
+        scale:'scale 0.8s ease-in-out',
+        scale1:'scale1 0.6s ease-in-out',
       }
     },
   },

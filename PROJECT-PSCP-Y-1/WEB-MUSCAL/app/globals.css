@@ -11,6 +11,12 @@
   margin: 0;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @font-face {
     font-family: 'inter-r';
     src: url('fonts/Inter_18pt-Regular.ttf') format('truetype');
