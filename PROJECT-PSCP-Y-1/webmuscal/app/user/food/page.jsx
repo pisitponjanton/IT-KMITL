@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, {useContext } from 'react';
 import FoodContext from "@/app/context";
 const Page=()=>{
-    const {foodList} = useContext(FoodContext);
+    const {vfood,delog} = useContext(FoodContext);
     return(
         <div className="w-screen h-screen flex flex-col p-[20px] animate-scale1">
             <div className="font-krona-r text-[#E44545] text-[60px]">Food <span className="text-[#ffff]">Log</span></div>
@@ -17,12 +17,11 @@ const Page=()=>{
             </div>
             <div className="flex gap-5 flex-col items-center w-full h-full overflow-scroll">
                 <div className="w-[800px] h-full mt-[40px]">
-                {foodList.map((food, index) => (
-                        <div
-                        key={index}
-                        className="w-full h-[120px] flex justify-around items-center rounded-3xl bg-[#031420] m-5 p-5">
-                            <div className="font-inter-r text-[#FFFFFF] text-[40px]">{food.name}</div>
-                            <div className="text-[#858585] text-[20px] font-inter-r">{`${food.calories} cal, ${food.protein} g, ${food.carbohydrate} g, ${food.fat} g`}</div>
+                {vfood?.entries?.map((food, index) => (
+                        <div key={index} className="w-full h-[120px] flex justify-around items-center rounded-3xl bg-[#031420] m-5 p-5">
+                            <div className="font-inter-r text-[#FFFFFF] text-[40px]">{food.food_name}</div>
+                            <div className="text-[#858585] text-[20px] font-inter-r">{`${food.nutritions.calories} cal, ${food.nutritions.protein} g, ${food.nutritions.carbohydrates} g, ${food.nutritions.fat} g`}</div>
+                            <div onClick={()=> delog(food.entry_id)} className=" cursor-pointer hover:scale-110 duration-300 ease-in-out text-[15px] bg-white p-3 rounded-2xl">remove</div>
                         </div>
                 ))}
                 </div>

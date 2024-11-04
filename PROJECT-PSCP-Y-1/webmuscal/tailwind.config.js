@@ -28,6 +28,7 @@ module.exports = {
         img2:"url('/img/img-1/image2.png')",
         img11:"url('/img/img-2/image1.png')",
         van:"url('/img/img-3/van.png')",
+        profileuser:"url('/img/profile.png')",
         bb: 'linear-gradient(135deg, #031420 73%, #07273D 100%)',
         bb1: 'linear-gradient(90deg, #102A46 0%, #1A4472 51%,#102A46 100%)',
         bb2: 'linear-gradient(180deg, #073575 0%,#ACACAC 100%)',
