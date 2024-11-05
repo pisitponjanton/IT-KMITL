@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from 'next/navigation';
-import React, { createContext, useState,useEffect } from 'react';
+import React, { createContext, useState,useEffect, useCallback } from 'react';
 const FoodContext = createContext();
 
 export const FoodProvider = ({ children }) => {
@@ -122,10 +122,26 @@ export const FoodProvider = ({ children }) => {
 
   const [dayd,setdayd] = useState("")
   
+  const [calorie_goal,setcalories] = useState('')
+  const [protein_goal,setprotein] = useState('')
+  const [carbohydrate_goal,setcarbohydrate] = useState('')
+  const [fat_goal,setfat] = useState('')
+
+  const [cdata,setcdata] = useState('')
+  const [cdata1,setcdata1] = useState('')
+  const [calorie_progress,setcalorie_progress] = useState('')
+  const [protein_progress,setprotein_progress] = useState('')
+  const [carbohydrate_progress,setcarbohydrate_progress] = useState('')
+  const [fat_progress,setfat_progress] = useState('')
+  const [day2,setday2] = useState('hidden')
+  const [dd,setdd] = useState('')
+  const [mm,setmm] = useState('')
+  const [yy,setyy] = useState('')
+  
   const [vfood,setvfood] = useState('')
-  const vfoodlog = async () => {
+  const vfoodlog = useCallback(async () => {
     try {
-      const vlogfood = await fetch(`https://muscal-api-9078d108b990.herokuapp.com/muscal-api/log/view_log/`,{
+      const vlogfood = await fetch(`https://muscal-api-9078d108b990.herokuapp.com/muscal-api/log/view_log/`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('Authorization')}`
@@ -133,22 +149,22 @@ export const FoodProvider = ({ children }) => {
       });
       if (vlogfood.ok) {
         const data = await vlogfood.json();
-        setvfood(data)
-        setdayd(cdata)
-        setTotalCalories(data.total_calories)
-        setTotalprotein(data.total_protein)
-        setTotalcarbohydrate(data.total_carbohydrates)
-        setTotalfat(data.total_fat)
-      }else if(vlogfood.status === 401){
-        localStorage.setItem('position','')
-        localStorage.setItem('Authorization','')
-      }else if(vlogfood.status === 404 ){
-        console.log("NOT FOUND")
+        setvfood(data);
+        setdayd(cdata);
+        setTotalCalories(data.total_calories);
+        setTotalprotein(data.total_protein);
+        setTotalcarbohydrate(data.total_carbohydrates);
+        setTotalfat(data.total_fat);
+      } else if (vlogfood.status === 401) {
+        localStorage.setItem('position', '');
+        localStorage.setItem('Authorization', '');
+      } else if (vlogfood.status === 404) {
+        console.log("NOT FOUND");
       }
-    }catch (error) {
-      console.log("EE:",error)
+    } catch (error) {
+      console.log("EE:", error);
     }
-  };
+  }, [cdata]);
 
   const logfood = async (food_id, quantity) => {
     try {
@@ -175,21 +191,6 @@ export const FoodProvider = ({ children }) => {
     }
   };
 
-  const [calorie_goal,setcalories] = useState('')
-  const [protein_goal,setprotein] = useState('')
-  const [carbohydrate_goal,setcarbohydrate] = useState('')
-  const [fat_goal,setfat] = useState('')
-
-  const [cdata,setcdata] = useState('')
-  const [cdata1,setcdata1] = useState('')
-  const [calorie_progress,setcalorie_progress] = useState('')
-  const [protein_progress,setprotein_progress] = useState('')
-  const [carbohydrate_progress,setcarbohydrate_progress] = useState('')
-  const [fat_progress,setfat_progress] = useState('')
-  const [day2,setday2] = useState('hidden')
-  const [dd,setdd] = useState('')
-  const [mm,setmm] = useState('')
-  const [yy,setyy] = useState('')
 
   const [cc,setcc] = useState(0)
   const [cct,setcct] = useState("Submit")
@@ -207,9 +208,9 @@ export const FoodProvider = ({ children }) => {
     db()
   };
 
-  const db = async () => {
+  const db = useCallback(async () => {
     try {
-      const dbtop = await fetch(`https://muscal-api-9078d108b990.herokuapp.com/muscal-api/user/dashboard?log_date=${cdata}`,{
+      const dbtop = await fetch(`https://muscal-api-9078d108b990.herokuapp.com/muscal-api/user/dashboard?log_date=${cdata}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('Authorization')}`
@@ -217,33 +218,32 @@ export const FoodProvider = ({ children }) => {
       });
       if (dbtop.ok) {
         const data = await dbtop.json();
-        // console.log(cdata)
-        setcdata1(data.log_date)
-        setcalories(Math.ceil(data.goal.calorie_goal))
-        setprotein(Math.ceil(data.goal.protein_goal))
-        setcarbohydrate(Math.ceil(data.goal.carbohydrate_goal))
-        setfat(Math.ceil(data.goal.fat_goal))
+        setcdata1(data.log_date);
+        setcalories(Math.ceil(data.goal.calorie_goal));
+        setprotein(Math.ceil(data.goal.protein_goal));
+        setcarbohydrate(Math.ceil(data.goal.carbohydrate_goal));
+        setfat(Math.ceil(data.goal.fat_goal));
         
-        setcalorie_progress(Math.ceil(data.progress.calorie_progress))
-        setprotein_progress(Math.ceil(data.progress.protein_progress))
-        setcarbohydrate_progress(Math.ceil(data.progress.carbohydrate_progress))
-        setfat_progress(Math.ceil(data.progress.fat_progress))
+        setcalorie_progress(Math.ceil(data.progress.calorie_progress));
+        setprotein_progress(Math.ceil(data.progress.protein_progress));
+        setcarbohydrate_progress(Math.ceil(data.progress.carbohydrate_progress));
+        setfat_progress(Math.ceil(data.progress.fat_progress));
         
-        setvfood(data)
-        setdayd(cdata)
-        setTotalCalories(data.total.total_calories)
-        setTotalprotein(data.total.total_protein)
-        setTotalcarbohydrate(data.total.total_carbohydrates)
-        setTotalfat(data.total.total_fat)
+        setvfood(data);
+        setdayd(cdata);
+        setTotalCalories(data.total.total_calories);
+        setTotalprotein(data.total.total_protein);
+        setTotalcarbohydrate(data.total.total_carbohydrates);
+        setTotalfat(data.total.total_fat);
         
-      }else if(dbtop.status == 401){
-        localStorage.setItem('position','')
-        localStorage.setItem('Authorization','')
+      } else if (dbtop.status === 401) {
+        localStorage.setItem('position', '');
+        localStorage.setItem('Authorization', '');
       }
-    }catch (error) {
-      console.log("EE:")
+    } catch (error) {
+      console.log("EE:");
     }
-  };
+  }, [cdata])
   
 
   const setgoal = async () => {
@@ -311,7 +311,7 @@ export const FoodProvider = ({ children }) => {
     if (nnn) {
       setname2(nnn);
     }
-  },[]);
+  },[db, vfoodlog, parname]);
   
 
   return (
