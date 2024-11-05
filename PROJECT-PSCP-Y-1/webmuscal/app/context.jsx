@@ -51,7 +51,11 @@ export const FoodProvider = ({ children }) => {
           const data = await response1.json();
           alert("Register successful")
           window.location.href = '/';
-      } else {
+      }else if(response1.status === 400){
+        alert("Password and Confirm password aren't equal.") 
+      }else if(response1.status === 409){
+        alert("Username is taken")
+      }else {
         sethh("translate-x-[0vw]")
       }
     }catch (error) {
@@ -82,6 +86,7 @@ export const FoodProvider = ({ children }) => {
     }
   };
   
+
   const [food_name, setfood_name] = useState('');
   const [serving_size, setserving_size] = useState('');
   const [servings_per_container, setservings_per_container] = useState('');
@@ -142,7 +147,6 @@ export const FoodProvider = ({ children }) => {
       }
     }catch (error) {
       console.log("EE:",error)
-      console.log(formattedDate)
     }
   };
 
@@ -213,7 +217,7 @@ export const FoodProvider = ({ children }) => {
       });
       if (dbtop.ok) {
         const data = await dbtop.json();
-        console.log(cdata)
+        // console.log(cdata)
         setcdata1(data.log_date)
         setcalories(Math.ceil(data.goal.calorie_goal))
         setprotein(Math.ceil(data.goal.protein_goal))
@@ -300,21 +304,15 @@ export const FoodProvider = ({ children }) => {
   const [name2,setname2] = useState(null)
 
   useEffect(() => {
-    if(parname !== "/"){
-      db();
-      foodV();
-      vfoodlog();
+    db();
+    foodV();
+    vfoodlog();
+    const nnn = localStorage.getItem("position");
+    if (nnn) {
+      setname2(nnn);
     }
-    if(parname === "/user/food/" || parname === "user/food/addfood/"){
-      foodV();
-    }
-  }, [parname]);
-  useEffect(()=>{
-    const nnn = localStorage.getItem("position")
-    if(nnn){
-      setname2(nnn)
-    }
-  },[name2])
+  },[]);
+  
 
   return (
     <FoodContext.Provider value={{

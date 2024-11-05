@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
     }
   },[pname])
   return (
-      <div className={`max-[1399px]:hidden min-[1791px]:hidden absolute`}>
+      <div className={`max-[1399px]:hidden absolute`}>
         <div className=" flex items-center overflow-hidden w-screen h-screen bg-img11 bg-cover bg-center bg-no-repeat">
             <div className=" h-screen z-10">
               <div className={`${prof} duration-500 ease-in-out mt-5 w-[300px] h-[350px] rounded-e-2xl flex flex-col gap-10 justify-center items-center`}>

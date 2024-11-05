@@ -47,12 +47,12 @@ export default function Page() {
 
   return (
       <div className="bg-[#031420] w-screen h-screen overflow-hidden flex items-center">
-          <div className={`w-[1900px] h-[820px] ${bgi} duration-500 ease-in-out bg-cover bg-center bg-no-repeat`}>
-            <div className=" flex flex-col justify-center items-center translate-x-[400px] translate-y-[60px] gap-[15px]">
+          <div className={` h-[100vh] w-[100vw] ${bgi} duration-500 ease-in-out bg-cover bg-center bg-no-repeat`}>
+            <div className=" flex flex-col justify-center items-center translate-x-[27vw] translate-y-[60px] gap-[15px]">
               <div className={`bg-c3 bg-cover bg-center bg-no-repeat w-[360px] h-[350px] hover:animate-spin animate-sp1 ${am}`}></div>
               <div className={`bg-c3_2 bg-cover bg-center bg-no-repeat w-[360px] h-[350px] hover:animate-spin animate-sp1 ${am}`}></div>
             </div>
-            <div className="absolute translate-y-[-605px] translate-x-[160px]">
+            <div className="absolute translate-y-[-605px] translate-x-[11vw]">
               <div className="hover:animate-spin animate-sp1 bg-c4 bg-cover bg-center bg-no-repeat w-[464.99px] h-[425.59px]"></div>
             </div>
           </div>
