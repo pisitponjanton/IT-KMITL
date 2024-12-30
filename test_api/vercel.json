@@ -4,6 +4,6 @@
     { "src": "api/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "api/index.js" }
+    { "src": "/index", "dest": "api/index.js" }
   ]
 }
