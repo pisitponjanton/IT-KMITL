@@ -3,8 +3,11 @@ const { spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
+const uploadsDir = "/tmp/uploads/";
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
+
 const storage = multer.diskStorage({
-  destination: "/tmp/uploads/",
+  destination: uploadsDir,
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   },
@@ -65,7 +68,7 @@ export default async function handler(req, res) {
             result += data.toString();
           });
 
-          pythonProcess.stderr.on("data", (data) => {
+          pythonProcess.stderr.on("data", () => {
             reject("Error");
           });
 
