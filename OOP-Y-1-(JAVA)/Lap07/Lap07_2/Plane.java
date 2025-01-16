@@ -1,5 +1,5 @@
 package Lap07.Lap07_2;
-public class Plane extends Vehicle{
+public class Plane extends Vehicle implements Flyable{
     private String airline,boeing;
     private static final int MAX_FLYER = 2;
     public Plane(){

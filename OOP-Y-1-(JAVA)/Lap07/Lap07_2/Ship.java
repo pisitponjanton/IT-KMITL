@@ -7,7 +7,7 @@ public class Ship extends Vehicle implements Floatable{
         super(fuel);
     }
     @Override
-    public void flOat(){
+    public void fl0at(){
         if(super.getFuel() >= 50){
             super.setFuel(super.getFuel()-50);
             System.out.println("Ship moves");
@@ -35,7 +35,7 @@ public class Ship extends Vehicle implements Floatable{
         System.out.println("Shhhhh");
     }
     public void move(){
-        flOat();
+        fl0at();
     }
     public void move(int distance){
         for(int i = 0;i<distance;i++){
@@ -43,7 +43,7 @@ public class Ship extends Vehicle implements Floatable{
                 System.out.println("Fuel is not enough.");
                 break;
             }
-            flOat();
+            fl0at();
         }
     }
 }

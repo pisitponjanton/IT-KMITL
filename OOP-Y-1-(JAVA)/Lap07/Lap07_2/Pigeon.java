@@ -6,7 +6,7 @@ public class Pigeon extends Bird{
     }
     public Pigeon(double wingSize , double weight , double height){
         super(wingSize,weight,height);
-        this.numberOfPigeon += 1;
+       Pigeon.numberOfPigeon += 1;
     }
     public void eat(String food){
         if( food.equals("worm")){
@@ -23,6 +23,7 @@ public class Pigeon extends Bird{
     public String toString(){
         return "Pigeon "+getWeight()+" kg and "+getHeight()+" cm. There are "+Pigeon.numberOfPigeon+" pigeons.";
     }
+    @Override
     public void fly(){
         if(getWeight()>=5){
             setWeight(getWeight()-0.25);

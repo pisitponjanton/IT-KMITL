@@ -1,34 +1,34 @@
 package Lap07.Lap07_1;
 
 public class Customer {
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private CheckingAccount acct;
     public Customer(){
         setFirstName("");
         setLastName("");
         setAcct(null);
     }
-    public Customer(String firstname,String lastname){
-        setFirstName(firstname);
-        setLastName(lastname);
+    public Customer(String firstName,String lastName){
+        setFirstName(firstName);
+        setLastName(lastName);
     }
-    public Customer(String firstname,String lastname, CheckingAccount acct){
-        setFirstName(firstname);
-        setLastName(lastname);
+    public Customer(String firstName,String lastName, CheckingAccount acct){
+        setFirstName(firstName);
+        setLastName(lastName);
         setAcct(acct);
     }
-    public void setFirstName(String firstname){
-        this.firstname = firstname;
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
     }
     public String getFirstName(){
-        return this.firstname;
+        return this.firstName;
     }
-    public void setLastName(String lastname){
-        this.lastname = lastname;
+    public void setLastName(String lastName){
+        this.lastName = lastName;
     }
     public String getLastName(){
-        return this.lastname;
+        return this.lastName;
     }
     public void setAcct(CheckingAccount acct){
         this.acct = acct;
@@ -36,12 +36,13 @@ public class Customer {
     public CheckingAccount getAcct(){
         return this.acct;
     }
+    @Override
     public String toString(){
         if(getAcct() == null){
-            return this.firstname+" "+this.lastname+" doesn’t have account.";
+            return this.firstName+" "+this.lastName+" doesn’t have account.";
         }
         else{
-            return "The "+this.firstname+" account has "+acct.getBalance()+" baht and "+acct.getCredit()+" credits.";
+            return "The "+this.firstName+" account has "+acct.getBalance()+" baht and "+acct.getCredit()+" credits.";
         }
     }
     public boolean equals(Customer c){
