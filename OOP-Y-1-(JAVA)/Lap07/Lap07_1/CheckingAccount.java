@@ -1,45 +1,58 @@
 package Lap07.Lap07_1;
 
-public class CheckingAccount extends Account{
+
+public class CheckingAccount extends Account {
+
     private double credit;
-    public CheckingAccount(){
-        super(0.0,"");
-        this.credit = 0.0;
+
+    public CheckingAccount() {
+        super(0, "");
+        this.credit = 0;
     }
-    public CheckingAccount(double balance,String name,double credit){
-        super(balance,name);
+
+    public CheckingAccount(double balance, String name, double credit) {
+        super(balance, name);
         this.credit = credit;
     }
-    public void setCredit(double credit){
-        if(credit > 0){
-            this.credit = credit;   
-        }
-        else{
+
+    public void setCredit(double credit) {
+        if (credit >= 0) {
+            this.credit = credit;
+        } else {
             System.out.println("Input number must be a positive integer.");
         }
     }
-    public double getCredit(){
+
+    public double getCredit() {
         return this.credit;
     }
+
     @Override
-    public void withdraw(double a){
-        if(a > 0 && getBalance()-a > 0){
-            setBalance(getBalance()-a);
-            System.out.println(a+" baht is withdrawn from "+super.getName()+" and your credit balance is "+this.credit+".");
+    public void withdraw(double a) {
+        if (a <= 0) {
+            System.out.println("Input number must be a positive integer.");
+            return;
         }
-        else if(a > 0 && (getCredit()+getBalance())-a >= 0){
-            setBalance(0);
-            setCredit(getCredit() - a);
-            System.out.println(a+" baht is withdrawn from "+super.getName()+" and your credit balance is "+this.credit+".");
-        }
-        else{
+
+        if (balance - a >= 0) {
+            this.setBalance(getBalance() - a);
+            System.out.println(a + " baht is withdrawn from " + name + " and your credit balance is " + credit + ".");
+        } else if ((balance - a < 0) && (balance - a + credit >= 0)) {
+            setCredit(credit + (balance - a));
+            this.setBalance(0);
+            System.out.println(a + " baht is withdrawn from " + name + " and your credit balance is " + credit + ".");
+        } else if ((balance - a < 0) && (balance - a + credit < 0)) {
             System.out.println("Not enough money!");
         }
     }
-    public void withdraw(String a){
-        this.withdraw(Double.parseDouble(a));
+
+    public void withdraw(String a) {
+        double doubleValue = Double.parseDouble(a);
+        this.withdraw(doubleValue);
     }
-    public String toString(){
-        return "The "+super.getName()+" account has "+super.getBalance()+" baht and "+getCredit()+" credits.";
+
+    @Override
+    public String toString() {
+        return "The " + name + " account has " + balance + " baht and " + credit + " credits.";
     }
 }
