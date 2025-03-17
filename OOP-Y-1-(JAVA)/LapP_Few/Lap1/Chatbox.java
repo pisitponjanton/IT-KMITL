@@ -1,5 +1,5 @@
 
-package LapP_Few;
+package LapP_Few.Lap1;
 
 import java.awt.event.*;
 import java.io.*;

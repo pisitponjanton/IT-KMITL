@@ -1,4 +1,4 @@
-package LapP_Few;
+package LapP_Few.Lap1;
 
 import javax.swing.*;
 import java.awt.*;
