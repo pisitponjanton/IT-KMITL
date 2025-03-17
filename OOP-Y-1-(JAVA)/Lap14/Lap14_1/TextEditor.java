@@ -2,92 +2,83 @@
 package Lap14.Lap14_1;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.nio.file.Path;
 
 public class TextEditor implements ActionListener{
     private JFrame jf;
-    private JPanel jp;
-    private JMenuBar menuBar;
-    private JMenu menu1;
-    private JMenuItem menuItem1,menuItem2,menuItem3,menuItem4;
+    private JMenuBar menubar;
+    private JMenu menu;
+    private JMenuItem menu_new,menu_open,menu_save,menu_close;
     private JTextArea jta;
     
     public TextEditor(){
         jf = new JFrame("My Text Editor");
         jta = new JTextArea();
-        menuBar = new JMenuBar();
-        menu1 = new JMenu("File");
-        menuItem1 = new JMenuItem("New");
-        menuItem2 = new JMenuItem("Open");
-        menuItem3 = new JMenuItem("Save");
-        menuItem4 = new JMenuItem("Close");
-  
-        menuItem1.addActionListener(this);
-        menuItem2.addActionListener(this);
-        menuItem3.addActionListener(this);
-        menuItem4.addActionListener(this);
+        menubar = new JMenuBar();
+        menu = new JMenu("File");
+        menu_new = new JMenuItem("New");
+        menu_new.addActionListener(this);
+        menu_open = new JMenuItem("Open");
+        menu_open.addActionListener(this);
+        menu_save = new JMenuItem("Save");
+        menu_save.addActionListener(this);
+        menu_close = new JMenuItem("Close");
+        menu_close.addActionListener(this);
         
-        menu1.add(menuItem1);
-        menu1.add(menuItem2);
-        menu1.add(menuItem3);
-        menu1.addSeparator();
-        menu1.add(menuItem4);
-        menuBar.add(menu1);
+        menu.add(menu_new);
+        menu.add(menu_open);
+        menu.add(menu_save);
+        menu.addSeparator();
+        menu.add(menu_close);
         
-        jf.setLayout(new BorderLayout());
-        jf.add(jta);
-        jf.setJMenuBar(menuBar);
-        jf.setSize(400,300);
+        menubar.add(menu);
+        JScrollPane sc = new JScrollPane(jta);
+        jf.add(sc);
+        jf.setJMenuBar(menubar);
         jf.setDefaultCloseOperation(3);
+        jf.setSize(400,300);
         jf.setVisible(true);
     }
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource().equals(menu_new)){
+            jta.setText("");
+        }
+        else if(e.getSource().equals(menu_open)){
+            JFileChooser fc = new JFileChooser();
+            fc.showOpenDialog(jf); 
+            File f = fc.getSelectedFile();
+            loadData(f.toString());
+        }
+        else if(e.getSource().equals(menu_save)){
+            JFileChooser fc = new JFileChooser();
+            fc.showSaveDialog(jf);
+            File f = fc.getSelectedFile();
+            saveData(f.toString());
+            jta.setText("");
+        }else if(e.getSource().equals(menu_close)){
+            System.exit(0);
+        }
+    }
     
-     public void actionPerformed(ActionEvent e){
-         if(e.getSource().equals(menuItem1)){
-             jta.setText("");
-         }
-         else if(e.getSource().equals(menuItem2)){
-             JFileChooser fc = new JFileChooser();
-             fc.showOpenDialog(fc);
-             File f = fc.getSelectedFile();
-             loadData(f.toString());
-         }
-        else if(e.getSource().equals(menuItem3)){
-             JFileChooser fc = new JFileChooser();
-             fc.showSaveDialog(fc);
-             File f = fc.getSelectedFile();
-             saveData(f.toString());
-         }
-         else if(e.getSource().equals(menuItem4)){
-             System.exit(0);
-         }
-     }
-     
     private void loadData(String path){
-        try(FileInputStream input = new FileInputStream(path)){
-            int i = input.read();
-            String text = "";
+        try(FileInputStream inp = new FileInputStream(path);){
+            int i = inp.read();
             while(i!=-1){
-                text = text + String.valueOf((char) i);
-                i = input.read();
+                jta.setText(jta.getText() + ((char) i));
+                i = inp.read();
             }
-            jta.setText(text);
-            input.close();
         }catch(Exception e){
         }
     }
     
     private void saveData(String path){
-        try(FileOutputStream output = new FileOutputStream(path)){
-            String text = jta.getText();
-            for(int i = 0; i<text.length(); i++){
-                output.write(text.charAt(i));
+        try(FileOutputStream op = new FileOutputStream(path);){
+            String str = jta.getText();
+            for(int i = 0;i < str.length();i++){
+                op.write(str.charAt(i));
             }
-            jta.setText("");
-            output.close();
         }catch(Exception e){
         }
     }
@@ -95,5 +86,4 @@ public class TextEditor implements ActionListener{
     public static void main(String[] args) {
         new TextEditor();
     }
-    
 }

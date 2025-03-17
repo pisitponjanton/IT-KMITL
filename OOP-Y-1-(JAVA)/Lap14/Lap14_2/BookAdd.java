@@ -1,45 +1,48 @@
 
 package Lap14.Lap14_2;
-import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.swing.*;
 
-public class BookAdd {
+
+public class BookAdd implements ActionListener{
     private JFrame jf;
     private JPanel jp1,jp2,jp3,jp4;
-    private JTextField jtf_name,jtf_price;
-    private JComboBox jcb;
     private JLabel name,price,type;
-    private JButton jb;
-    private ArrayList<Book> list;
-    private BookView b;
+    private JTextField name_t,price_t;
+    private JComboBox type_t;
+    private JButton insert;
     
-    public BookAdd(ArrayList<Book> list,BookView b){
+    private ArrayList<Book> list;
+    private BookView j;
+    
+    public BookAdd(ArrayList<Book> list,BookView j){
+        jf = new JFrame();
+        this.j = j;
         this.list = list;
-        this.b = b;
-        jf = new JFrame("Book Add");
         jp1 = new JPanel();
+        name = new JLabel("   Name");
+        price = new JLabel("   Price");
+        type = new JLabel("   Type");
         jp1.setLayout(new GridLayout(3,1));
-        name = new JLabel("  Name");
-        price = new JLabel(" Price");
-        type = new JLabel("  Type");
         jp1.add(name);
         jp1.add(price);
         jp1.add(type);
         
         jp2 = new JPanel();
+        name_t = new JTextField();
+        price_t = new JTextField();
+        type_t = new JComboBox();
+        type_t.addItem("General");
+        type_t.addItem("Computer");
+        type_t.addItem("Math&Sci");
+        type_t.addItem(" Photo3");
         jp2.setLayout(new GridLayout(3,1));
-        jtf_name = new JTextField();
-        jtf_price = new JTextField();
-        jcb = new JComboBox();
-        jcb.addItem("Genera");
-        jcb.addItem("Computer");
-        jcb.addItem("Math&Sci");
-        jcb.addItem("Photo");
-        jp2.add(jtf_name);
-        jp2.add(jtf_price);
-        jp2.add(jcb);
+        jp2.add(name_t);
+        jp2.add(price_t);
+        jp2.add(type_t);
         
         jp3 = new JPanel();
         jp3.setLayout(new GridLayout(1,2));
@@ -47,17 +50,10 @@ public class BookAdd {
         jp3.add(jp2);
         
         jp4 = new JPanel();
-        jb = new JButton("Insert");
-        jb.addActionListener(_->{
-            String name = jtf_name.getText();
-            double price = Double.parseDouble(jtf_price.getText());
-            String type = jcb.getSelectedItem().toString();
-            this.list.add(new Book(name,price,type));
-            b.showList(list.size()-1);
-            JOptionPane.showMessageDialog(jf,"Done it.");
-            jf.dispose();
-        });
-        jp4.add(jb);
+        insert = new JButton("Insert");
+        jp4.setLayout(new FlowLayout());
+        insert.addActionListener(this);
+        jp4.add(insert);
         
         jf.setLayout(new BorderLayout());
         jf.add(jp3);
@@ -65,5 +61,23 @@ public class BookAdd {
         jf.setSize(300,200);
         jf.setDefaultCloseOperation(2);
         jf.setVisible(true);
+    }
+    
+    @Override
+       public void actionPerformed(ActionEvent e){
+        if(e.getSource().equals(insert)){
+            String name_b = name_t.getText();
+            double price_b;
+            String type_b = (type_t.getSelectedItem()).toString();
+            try{
+                price_b = Double.parseDouble(price_t.getText());
+            }catch(NumberFormatException ex){
+                price_b  = 0.0;
+            }
+            list.add(new Book(name_b,price_b,type_b));
+            j.setNum(list.size()-1);
+            JOptionPane.showMessageDialog(jf,"Done it.");
+            jf.dispose();
+        }
     }
 }

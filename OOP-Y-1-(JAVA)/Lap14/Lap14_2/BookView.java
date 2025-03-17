@@ -1,3 +1,4 @@
+
 package Lap14.Lap14_2;
 
 import javax.swing.*;
@@ -6,143 +7,161 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-public class BookView implements WindowListener,Serializable{
-    private ArrayList<Book> list;
+public class BookView implements ActionListener,WindowListener{
     private JFrame jf;
-    private JComboBox jcb;
-    private JPanel[] jp;
-    private JTextField[] jtf;
-    private JTextField jtf_num;
-    private JLabel[] jlb;
-    private String[] textjlb = {"  Name","  Price","  Type"};
-    private JButton[] jb;
-    private String[] textjb = {"<<<",">>>","Add","Update","Delete"};
+    private JPanel jp1,jp2,jp3,jp4,jp5,jp6;
+    private JLabel name,price,type;
+    private JTextField name_t,price_t,num;
+    private JComboBox type_t;
+    private JButton left,rigth,add,update,delete;
+    
+    private ArrayList<Book> list;
+    
     public BookView(){
-        jf = new JFrame("Book View");
-        jtf_num = new JTextField("0");
-        jtf_num.setPreferredSize(new Dimension(50, 30));
-        jtf_num.setEditable(false);
-        jcb = new JComboBox();
-        jcb.addItem("Genera");
-        jcb.addItem("Computer");
-        jcb.addItem("Math&Sci");
-        jcb.addItem("Photo");
-        jp = new JPanel[6];
-        for(int i = 0;i< jp.length;i++){
-            jp[i] = new JPanel();
-        }
+        jf = new JFrame();
         
-        jp[0].setLayout(new GridLayout(3,1));
-        jlb = new JLabel[3];
-        for(int i = 0;i< textjlb.length;i++){
-            jlb[i] = new JLabel(textjlb[i]);
-            jp[0].add(jlb[i]);
-        }
+        jp1 = new JPanel();
+        name = new JLabel("   Name");
+        price = new JLabel("   Price");
+        type = new JLabel("   Type");
+        jp1.setLayout(new GridLayout(3,1));
+        jp1.add(name);
+        jp1.add(price);
+        jp1.add(type);
         
-        jp[1].setLayout(new GridLayout(3,1));
-        jtf = new JTextField[2];
-        for(int i = 0; i<jtf.length;i++){
-            jtf[i] = new JTextField();
-            jp[1].add(jtf[i]);
-        }
-        jp[1].add(jcb);
+        jp2 = new JPanel();
+        name_t = new JTextField();
+        price_t = new JTextField();
+        type_t = new JComboBox();
+        type_t.addItem("General");
+        type_t.addItem("Computer");
+        type_t.addItem("Math&Sci");
+        type_t.addItem(" Photo3");
+        jp2.setLayout(new GridLayout(3,1));
+        jp2.add(name_t);
+        jp2.add(price_t);
+        jp2.add(type_t);
         
-        jb = new JButton[5];
-        for(int i = 0;i<textjb.length;i++){
-            jb[i] = new JButton(textjb[i]);
-        }
-        jp[4].setLayout(new FlowLayout());
-        jb[0].addActionListener(_->{
-            showList(Integer.parseInt(jtf_num.getText())-1);
-        });
-        jb[1].addActionListener(_->{
-            showList(Integer.parseInt(jtf_num.getText())+1);
-        });
-        jp[4].add(jb[0]);
-        jp[4].add(jtf_num);
-        jp[4].add(jb[1]);
+        jp3 = new JPanel();
+        jp3.setLayout(new GridLayout(1,2));
+        jp3.add(jp1);
+        jp3.add(jp2);
         
-        jp[2].setLayout(new GridLayout(1,2));
-        jp[2].add(jp[0]);
-        jp[2].add(jp[1]);
+        jp4 = new JPanel();
+        left = new JButton("<<<");
+        rigth = new JButton(">>>");
+        num = new JTextField("0",2);
+        num.setEditable(false);
+        jp4.setLayout(new FlowLayout());
+        left.addActionListener(this);
+        rigth.addActionListener(this);
+        jp4.add(left);
+        jp4.add(num);
+        jp4.add(rigth);
         
-        jp[3].setLayout(new BorderLayout());
-        jp[3].add(jp[2]);
-        jp[3].add(jp[4],BorderLayout.SOUTH);
+        jp5 = new JPanel();
+        add = new JButton("Add");
+        update = new JButton("Update");
+        delete = new JButton("Delete");
+        jp5.setLayout(new FlowLayout());
+        add.addActionListener(this);
+        update.addActionListener(this);
+        delete.addActionListener(this);
+        jp5.add(add);
+        jp5.add(update);
+        jp5.add(delete);
         
-        jp[5].setLayout(new FlowLayout());
-        jb[2].addActionListener(_->{
-            BookAdd bookadd = new BookAdd(list,this);
-        });
-        jb[3].addActionListener(_->{
-            int index = Integer.parseInt(jtf_num.getText());
-            try{
-                String name = jtf[0].getText();
-                double price = Double.parseDouble(jtf[1].getText());
-                String type = jcb.getSelectedItem().toString();
-                this.list.set(index,new Book(name,price,type));
-                showList(index);
-                JOptionPane.showMessageDialog(jf, "Done it.");
-            }catch(Exception e){
-                
-            }
-        });
-        jb[4].addActionListener(_->{
-            int index = Integer.parseInt(jtf_num.getText());
-            try{
-                list.remove(index);
-                jtf[0].setText("");
-                jtf[1].setText("");
-                jcb.setSelectedItem("Genera");
-                JOptionPane.showMessageDialog(jf, "Done it.");
-            }catch(HeadlessException e){
-                
-            }
-        });
-        jp[5].add(jb[2]);
-        jp[5].add(jb[3]);
-        jp[5].add(jb[4]);
+        jp6 = new JPanel();
+        jp6.setLayout(new GridLayout(2,1));
+        jp6.add(jp4);
+        jp6.add(jp5);
+        
+        jf.setLayout(new BorderLayout());
+        jf.add(jp3);
+        jf.add(jp6,BorderLayout.SOUTH);
         
         jf.addWindowListener(this);
-        jf.setLayout(new BorderLayout());
-        jf.add(jp[3]);
-        jf.add(jp[5],BorderLayout.SOUTH);
         jf.setSize(400,300);
         jf.setDefaultCloseOperation(3);
         jf.setVisible(true);
     }
-    public void showList(int index){
-        try{
-            Book book = list.get(index);
-            jtf[0].setText(book.getName());
-            jtf[1].setText(book.getPrice()+"");
-            jcb.setSelectedItem(book.getType());
-            jtf_num.setText(index+"");
-        }catch(Exception e){
-            
+    
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource().equals(add)){
+            new BookAdd(list,this);
+        }
+        else if(e.getSource().equals(left)){
+            int num_int = Integer.parseInt(num.getText());
+            if(num_int > 0){
+                setNum(num_int-1);
+            }
+        }
+        else if(e.getSource().equals(rigth)){
+            int num_int = Integer.parseInt(num.getText());
+            if(num_int < list.size()-1){
+                setNum(num_int+1);
+            }
+        }else if(e.getSource().equals(update)){
+            int num_int = Integer.parseInt(num.getText());
+            if(!list.isEmpty()){
+                String name_b = name_t.getText();
+                double price_b;
+                String type_b = (type_t.getSelectedItem()).toString();
+                try{
+                    price_b = Double.parseDouble(price_t.getText());
+                }catch(NumberFormatException ex){
+                    price_b  = 0.0;
+                }
+                list.set(num_int,new Book(name_b,price_b,type_b));
+                JOptionPane.showMessageDialog(jf,"Done it.");
+            }
+        }
+        else if(e.getSource().equals(delete)){
+            int num_int = Integer.parseInt(num.getText());
+            if(!list.isEmpty()){
+                list.remove(num_int);
+                JOptionPane.showMessageDialog(jf,"Done it.");
+            }
+            setNum(0);
         }
     }
+    
+    public void setNum(int n){
+        if(!list.isEmpty()){
+            String name_b = list.get(n).getName();
+            double price_b = list.get(n).getPrice();
+            String type_b = list.get(n).getType();
+            name_t.setText(name_b);
+            price_t.setText(price_b+"");
+            type_t.setSelectedItem(type_b);
+            num.setText(n+"");
+        }
+        else{
+            name_t.setText("");
+            price_t.setText("");
+            type_t.setSelectedItem("General");
+            num.setText(n+"");
+        }
+    }
+    
     @Override
     public void windowOpened(WindowEvent e){
-        try(FileInputStream input = new FileInputStream("Book.data");
-            ObjectInputStream oinput = new ObjectInputStream(input);){
-            list = (ArrayList<Book>) oinput.readObject();
-            showList(0);
-            System.out.println("Load...");
+        try(FileInputStream inp = new FileInputStream("Book.data");
+            ObjectInputStream oinp = new ObjectInputStream(inp);){
+            list = (ArrayList<Book>) oinp.readObject();
         }catch(Exception ex){
-            list = new ArrayList<>();
-            System.out.println("Null");
+            list = new ArrayList();
         }
+        setNum(0);
     }
     @Override
     public void windowClosing(WindowEvent e){
-        try(FileOutputStream output = new FileOutputStream("Book.data");
-            ObjectOutputStream ooutput = new ObjectOutputStream(output);){
-            ooutput.writeObject(list);
-            System.out.println("Save...");
-        }catch(Exception ex){
-            System.out.println("Not Save");
-        }}
+        try(FileOutputStream out = new FileOutputStream("Book.data");
+            ObjectOutputStream oout = new ObjectOutputStream(out);){
+            oout.writeObject(list);
+        }catch(IOException ex){
+        }
+    }
     @Override
     public void windowClosed(WindowEvent e){}
     @Override
