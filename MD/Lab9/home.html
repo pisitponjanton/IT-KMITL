@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas + SVG Example</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Hello world!</h1>
+    <h3>Mr. Pisitpon Janton 67070119</h3>
+
+    <!-- รูปปกติ -->
+    <img src="image.jpg" width="300" alt="Pisitpon Janton">
+    <br>
+
+    <!-- รูป Grayscale -->
+    <img src="image2.png" width="600" alt="Grayscale" id="myImage">
+    <br>
+
+    <!-- SVG Initials -->
+    <div class="svg-wrapper">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+        <!-- ตัว P -->
+        <g class="p" transform="translate(-150,-100)">
+          <path d="M298,369 C173,43 516,290 283,301" stroke="#0077ff" stroke-width="6" fill="none" />
+        </g>
+
+        <!-- ตัว J -->
+        <g class="j">
+          <path d="M250 50 L320 50 
+                   M285 50 L285 130 
+                   Q285 170, 250 170" stroke="#ff3366" stroke-width="6" fill="none" />
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
