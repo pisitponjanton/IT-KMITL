@@ -1,40 +1,32 @@
 #include <stdio.h>
 #include <string.h>
 
-void delete_chars(char str[], int c1, int c2) {
-    int len = strlen(str);
-    char newstr[len];
-    int index = 0;
-
-    for (int i = 0; i < len; i++) {
-        if (i != c1 && i != c2) {
-            newstr[index++] = str[i];
-        }
-    }
-    newstr[index] = '\0';
-
-    strcpy(str, newstr);
-}
-
 int main() {
-    char str[100];
+    char str[101];
     scanf("%[^\n]", str);
 
     while (1) {
+        char newstr[101];
+        int idx = 0;
         int changed = 0;
 
-        for (int i = 1; str[i] != '\0'; i++) {
-            if (str[i] == str[i - 1]) {
-                delete_chars(str, i, i - 1);
-                printf("%s\n", str);
+        for (int i = 0; str[i] != '\0'; i++) {
+            if (str[i] == str[i + 1]) {
+                i++;
                 changed = 1;
-                break;
+            } else {
+                newstr[idx++] = str[i];
             }
         }
+        newstr[idx] = '\0';
 
-        if (!changed) break;
+        if (changed) {
+            printf("%s\n", newstr);
+            strcpy(str, newstr);
+        } else {
+            break;
+        }
     }
-
 
     return 0;
 }
