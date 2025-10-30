@@ -10,8 +10,30 @@ String currentSubTopic = "";
 String lastReceivedTopic = "";
 String lastReceivedPayload = "";
 
+// ค่าที่ส่งขึ้น web
+float web = 0;
+
 unsigned long lastMillis = 0;
 int n = 0;
+
+int led = 3;
+int pin = A0;
+int trigPin = 9;
+int echoPin = 10;
+
+// กำหนดรูปแบบการเปิดไฟของแต่ละเลข (0–9)
+int num_array[10][7] = {
+  { 1, 1, 1, 1, 1, 1, 0 },  // 0
+  { 0, 1, 1, 0, 0, 0, 0 },  // 1
+  { 1, 1, 0, 1, 1, 0, 1 },  // 2
+  { 1, 1, 1, 1, 0, 0, 1 },  // 3
+  { 0, 1, 1, 0, 0, 1, 1 },  // 4
+  { 1, 0, 1, 1, 0, 1, 1 },  // 5
+  { 1, 0, 1, 1, 1, 1, 1 },  // 6
+  { 1, 1, 1, 0, 0, 0, 0 },  // 7
+  { 1, 1, 1, 1, 1, 1, 1 },  // 8
+  { 1, 1, 1, 0, 0, 1, 1 }   // 9
+};
 
 // ------------------- ฟังก์ชันเชื่อมต่อ Wi-Fi -------------------
 void connectToWiFi(const char* ssid = "iPhoner", const char* password = "top44444") {
@@ -67,15 +89,15 @@ String getMQTTTopic() {
 }
 
 // ------------------- ฟังก์ชันอ่านอุณหภูมิ -------------------
-float readTemperature(int p = A0) {
-  int sensorValue = analogRead(p);               // อ่านค่าจากขา A0
+float readTemperature(int pin = pin) {
+  int sensorValue = analogRead(pin);             // อ่านค่าจากขา A0
   float voltage = sensorValue * (5.0 / 1023.0);  // แปลงเป็นแรงดันไฟฟ้า (โวลต์)
   float temperatureC = (voltage - 0.5) * 100.0;  // แปลงเป็นอุณหภูมิ (°C)
   return temperatureC;                           // คืนค่าเป็น float
 }
 
 // ฟังก์ชันอ่านค่าอุณหภูมิจาก Thermistor (NTC แบบ 10k)
-float readThermistor(int pin = A0) {
+float readThermistor(int pin = pin) {
   // ==== ปรับค่าตามวงจรจริงที่คุณใช้ ====
   const float VCC = 5;                 // ⚡ ถ้าใช้ UNO (5V) ให้เปลี่ยนเป็น 5.0
   const float R_FIXED = 10000.0;       // ⚙️ ตัวต้านทานคงที่ (10kΩ)
@@ -96,11 +118,67 @@ float readThermistor(int pin = A0) {
   float tempK = 1.0 / ((1.0 / T0) + (1.0 / B_COEFFICIENT) * log(R_thermistor / R0));
   return tempK - 273.15;
 }
+
+// ฟังก์ชันอ่านระยะทางจาก Ultrasonic Sensor (HC-SR04)
+float readUltrasonic(int trigPin = trigPin, int echoPin = echoPin) {
+  // สร้างพัลส์สั้น ๆ 10 µs เพื่อเริ่มการวัด
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // อ่านค่าระยะเวลาที่เสียงเดินทางไป-กลับ (microseconds)
+  long duration = pulseIn(echoPin, HIGH, 30000);  // timeout 30ms (≈5m)
+
+  // คำนวณระยะทางในหน่วยเซนติเมตร
+  float distanceCm = duration * 0.034 / 2.0;
+
+  return distanceCm;  // ✅ คืนค่าระยะทาง (cm)
+}
+
+// ฟังก์ชันควบคุมความสว่าง LED ด้วย Potentiometer
+int controlLEDWithPot(int pin = pin, int potPin = led) {
+  delay(10);
+  // อ่านค่าจาก potentiometer (0–1023)
+  int potValue = analogRead(pin);
+
+  // แปลงค่าเป็นช่วง 0–255 สำหรับ PWM
+  int brightness = potValue / 4;  // (1023 ÷ 4 ≈ 255)
+
+  // เขียนค่า PWM ไปยังขา LED
+  analogWrite(potPin, brightness);
+  return potValue;
+}
+
+// ------------------- ฟังก์ชันแสดงเลขบน 7-segment -------------------
+void display7Segment(int digit, int pins[7]) {
+  if (digit < 0 || digit > 9) return;  // ป้องกันค่าผิดพลาด
+
+  // เขียนค่า HIGH/LOW ไปยังแต่ละขา segment
+  for (int i = 0; i < 7; i++) {
+    digitalWrite(pins[i], num_array[digit][i]);
+  }
+}
+
+int segmentPins[8] = { 2, 3, 4, 5, 6, 7, 8, 9 };  // a,b,c,d,e,f,g,จุด
+
 // ------------------- Setup -------------------
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-
   Serial.begin(9600);
+
+  pinMode(led, OUTPUT);  //3
+
+  pinMode(pin, OUTPUT);  //A0
+
+  pinMode(trigPin, OUTPUT);  //9
+  pinMode(echoPin, INPUT);   //10
+
+  // กำหนดเลขบน 7-segment ทุกขาเป็น OUTPUT
+  for (int i = 0; i < 8; i++) {
+    pinMode(segmentPins[i], OUTPUT);
+  };
+
   connectToWiFi();
   connectToMQTT();
 }
@@ -114,15 +192,28 @@ void loop() {
   }
 
   // ส่งขึ้นเว็บ
-  if (millis() - lastMillis > 100) {
+  if (millis() - lastMillis > 1000) {
     lastMillis = millis();
-    float tem = readTemperature();
-    publishToMQTT("67070119/temp", String(tem));
+    publishToMQTT("67070119/temp", String(web));
   }
 
   String msg = getMQTTMessage();
-  float tem = readTemperature();
+  //ฟังก์ชันอ่านอุณหภูมิ
+  // float tem = readTemperature(); pin->A0
+
+  // ฟังก์ชันอ่านค่าอุณหภูมิจาก Thermistor (NTC แบบ 10k) pin->A0
   // float tem = readThermistor();
-  Serial.println(tem);
-  n = tem;
+
+  // // ฟังก์ชันอ่านระยะทางจาก Ultrasonic Sensor trigPin->9 , echoPin->10
+  // float tem = readUltrasonic();
+
+  // ฟังก์ชันควบคุมความสว่าง LED ด้วย Potentiometer pin->A0, potPin->3(ต่อไฟ LED)
+  // float tem = controlLEDWithPot();
+
+  for (int d = 0; d < 10; d++) {
+    display7Segment(d, segmentPins);
+    delay(1000);
+  }
+  // Serial.println(tem);
+  // web = tem;
 }
