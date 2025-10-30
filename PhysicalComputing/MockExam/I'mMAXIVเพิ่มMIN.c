@@ -1,45 +1,39 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main()
 {
-    char mm[10];
-    int size = 5;
-    int *num = (int *)malloc(size * sizeof(int));
-    scanf("%[^\n]", mm);
+    char *type = (char *)malloc(4 * sizeof(char));
+    int a, b, c, d, e;
+    scanf("%[^\n]", type);
+    scanf(" %d %d %d %d %d", &a, &b, &c, &d, &e);
 
-    for (int i = 0; i < 5; i++)
+    if (strcmp(type, "MAX") == 0)
     {
-        scanf("%d", &(*(num + i)));
-    }
-
-    if (strcmp("MAX", mm) == 0)
-    {
-        int max = *num;
-        for (int i = 0; i < 5; i++)
-        {
-            if (max < *(num + i))
-            {
-                max = *(num + i);
-            }
-        }
+        int max = a;
+        if (b > max)
+            max = b;
+        if (c > max)
+            max = c;
+        if (d > max)
+            max = d;
+        if (e > max)
+            max = e;
         printf("MAX : %d", max);
-        return 0;
     }
-
-    if (strcmp("MIN", mm) == 0)
+    else
     {
-        int min = *num;
-        for (int i = 0; i < 5; i++)
-        {
-            if (min > *(num + i))
-            {
-                min = *(num + i);
-            }
-        }
+        int min = a;
+        if (b < min)
+            min = b;
+        if (c < min)
+            min = c;
+        if (d < min)
+            min = d;
+        if (e < min)
+            min = e;
         printf("MIN : %d", min);
-        return 0;
     }
 
     return 0;

@@ -1,92 +1,72 @@
 #include <stdio.h>
-#include <ctype.h>
 #include <stdlib.h>
+#include <ctype.h>
 
-int check_char(char x, char *list, int size);
-void bbsort(char *list, int size);
-void countchar(char str[], char *list, int *numlist, int size);
+int checkList(char *list, char txt, int *num, int size);
+void sort(int size, char *list, int *num);
 
 int main()
 {
-    char str[255];
-    int n = 0;
+    int size = 0;
+    char *txt = (char *)malloc(255 * sizeof(char));
+    scanf("%[^\n]", txt);
 
-    int size_p = 0;
-    char *p;
-    p = (char *)malloc(255 * sizeof(char));
-
-    int *d;
-    d = (int *)malloc(255 * sizeof(int));
-
-    scanf("%[^\n]", str);
-    for (int i = 0; str[i] != '\0'; i++)
+    char *list = (char *)malloc(255 * sizeof(char));
+    int *num = (int *)malloc(255 * sizeof(int));
+    for (int i = 0; *(txt + i) != '\0'; i++)
     {
-        if (isalpha(str[i]) && !check_char(str[i], p, size_p))
+        if (!checkList(list, *(txt + i), num, size) && isalpha(*(txt + i)))
         {
-            *(p + size_p) = str[i];
-            size_p++;
+            *(list + size) = *(txt + i);
+            size++;
         }
     }
 
-    bbsort(p, size_p);
-    countchar(str, p, d, size_p);
+    sort(size, list, num);
 
-    for (int i = 0; i < size_p; i++)
+    for (int i = 0; *(list + i) != '\0'; i++)
     {
-        printf("%c = %d\n", *(p + i), *(d + i));
+        printf("%c = %d\n", *(list + i), *(num + i));
     }
 
-    free(p);
-    free(d);
     return 0;
 }
 
-int check_char(char x, char *list, int size)
+int checkList(char *list, char txt, int *num, int size)
 {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; *(list + i) != '\0'; i++)
     {
-        if (*(list + i) == x)
+        if (txt == *(list + i))
         {
+            *(num + i) += 1;
             return 1;
         }
     }
+    *(num + size) = 1;
     return 0;
 }
 
-void bbsort(char *list, int size)
+void sort(int size, char *list, int *num)
 {
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
         {
-            char b = *(list + i);
-            char n = *(list + j);
+            char f = *(list + i);
+            char r = *(list + j);
 
-            char bl = tolower(b);
-            char nl = tolower(n);
-
-            if (bl < nl || (bl == nl && b > n))
+            char lf = tolower(*(list + i));
+            char lr = tolower(*(list + j));
+            if (lf < lr || ( f > r && lf == lr))
             {
-                char pv = *(list + i);
+                char p = *(list + i);
                 *(list + i) = *(list + j);
-                *(list + j) = pv;
-            }
-        }
-    }
-}
+                *(list + j) = p;
 
-void countchar(char str[], char *list, int *numlist, int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        int count = 0;
-        for (int j = 0; str[j] != '\0'; j++)
-        {
-            if (*(list + i) == str[j])
-            {
-                count++;
+                int pn = *(num + i);
+                *(num + i) = *(num + j);
+                *(num + j) = pn;
             }
         }
-        *(numlist + i) = count;
     }
 }
