@@ -1,0 +1,27 @@
+# ===== Node.js =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== Environment =====
+.env
+.env.*
+!.env.example
+
+# ===== Database / Config =====
+database.js
+
+# ===== Build =====
+dist/
+build/
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ===== Ignore folder นี้ =====
+WEBPRO-Y-2-(html/css/js/node/mysql)/
