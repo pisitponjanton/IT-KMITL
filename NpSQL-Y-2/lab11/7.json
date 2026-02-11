@@ -34,28 +34,34 @@
         "Speak": "Good"
       }
     ],
-    "EducationBackground": [
-      {
-        "Level": "Bachelor Degree",
-        "Year": 1997,
-        "Institution": "Hogwarts School",
-        "Major": "Auror",
-        "DegreeObtained": "Bachelor of Wizard"
-      },
-      {
-        "Level": "Master Degree",
-        "Year": 2000,
-        "Institution": "Durmstrang Institute",
-        "Major": "Auror",
-        "DegreeObtained": "Master of Wizard"
-      },
-      {
-        "Level": "Doctoral Degree",
-        "Year": null,
-        "Institution": null,
-        "Major": null,
-        "DegreeObtained": null
-      }
-    ]
+    "EducationBackground": {
+      "Bachelor Degree": [
+        {
+          "Level": "Bachelor Degree",
+          "Year": 1997,
+          "Institution": "Hogwarts School",
+          "Major": "Auror",
+          "DegreeObtained": "Bachelor of Wizard"
+        }
+      ],
+      "Master Degree": [
+        {
+          "Level": "Master Degree",
+          "Year": 2000,
+          "Institution": "Durmstrang Institute",
+          "Major": "Auror",
+          "DegreeObtained": "Master of Wizard"
+        }
+      ],
+      "Doctoral Degree": [
+        {
+          "Level": "Doctoral Degree",
+          "Year": null,
+          "Institution": null,
+          "Major": null,
+          "DegreeObtained": null
+        }
+      ]
+    }
   }
 }
