@@ -1,0 +1,16 @@
+[
+  {
+    "ID": 1,
+    "Country": "Thailand",
+    "Year": 1990,
+    "Customer": "Sara",
+    "Amount": 350
+  },
+  {
+    "ID": 2,
+    "Country": "Japan",
+    "Year": 1990,
+    "Customer": "Alex",
+    "Amount": 450
+  }
+]

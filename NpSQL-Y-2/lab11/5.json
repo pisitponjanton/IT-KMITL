@@ -1,0 +1,24 @@
+{
+  "Invoice": {
+    "InvoiceNo": 123,
+    "Date": "2016-10-18",
+    "Seller": {
+      "CompanyName": "FalconWiz, Inc.",
+      "Address": {
+        "Street": "12345 Bird Road",
+        "City": "Internet",
+        "Province": "ON",
+        "Country": "Canada",
+        "PostalCode": "L1C 4S5"
+      }
+    },
+    "PaymentMethod": "Credit",
+    "Items": [
+      {
+        "ItemName": "Video Games",
+        "Price": 59.99
+      }
+    ],
+    "Total": 59.99
+  }
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "Club ID": 101,
+    "Club Name": "IT",
+    "Entrance Fee": 120,
+    "Student": [
+      { "student ID": "S05", "student Name": "John" },
+      { "student ID": "S03", "student Name": "Antony" }
+    ]
+  },
+  {
+    "Club ID": 102,
+    "Club Name": "Volunteer",
+    "Entrance Fee": 0,
+    "Student": [{ "student ID": "S03", "student Name": "Antony" }]
+  },
+  {
+    "Club ID": 103,
+    "Club Name": "China",
+    "Entrance Fee": 100,
+    "Student": [
+      { "student ID": "S03", "student Name": "Antony" },
+      { "student ID": "S05", "student Name": "John" },
+      { "student ID": "S07", "student Name": "Black" }
+    ]
+  },
+  {
+    "Club ID": 104,
+    "Club Name": "Japan",
+    "Entrance Fee": 500,
+    "Student": [
+      { "student ID": "S03", "student Name": "Antony" },
+      { "student ID": "S01", "student Name": "Sara" }
+    ]
+  }
+]

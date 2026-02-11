@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "S05",
+    "studentName": "John",
+    "clubs": [
+      { "clubID": "101", "clubName": "IT", "entranceFee": 120 },
+      { "clubID": "103", "clubName": "China", "entranceFee": 100 }
+    ]
+  },
+  {
+    "_id": "S03",
+    "studentName": "Antony",
+    "clubs": [
+      { "clubID": "101", "clubName": "IT", "entranceFee": 120 },
+      { "clubID": "102", "clubName": "Volunteer", "entranceFee": 0 },
+      { "clubID": "103", "clubName": "China", "entranceFee": 100 },
+      { "clubID": "104", "clubName": "Japan", "entranceFee": 500 }
+    ]
+  },
+  {
+    "_id": "S07",
+    "studentName": "Black",
+    "clubs": [{ "clubID": "103", "clubName": "China", "entranceFee": 100 }]
+  },
+  {
+    "_id": "S01",
+    "studentName": "Sara",
+    "clubs": [{ "clubID": "104", "clubName": "Japan", "entranceFee": 500 }]
+  }
+]

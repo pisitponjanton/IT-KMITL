@@ -1,0 +1,129 @@
+[
+  {
+    "_id": "V001",
+    "inv_date": "20/05/62",
+    "customer": {
+      "customer_id": "C40",
+      "name": "Aye Mi",
+      "tel": "+6693-908-5236",
+      "address": {
+        "house_id": 70,
+        "road": "Rama II",
+        "city": "Bangkok"
+      }
+    },
+    "items": [
+      {
+        "product_id": "P001",
+        "product_name": "iPhone",
+        "brand": "Apple",
+        "price": 45000,
+        "quantity": 1
+      },
+      {
+        "product_id": "P003",
+        "product_name": "iPad",
+        "brand": "Apple",
+        "price": 22000,
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "_id": "V002",
+    "inv_date": "12/11/62",
+    "customer": {
+      "customer_id": "C16",
+      "name": "Takashi",
+      "tel": "+6677-101-3758",
+      "address": {
+        "house_id": 482,
+        "road": "Rama IV",
+        "city": "Bangkok"
+      }
+    },
+    "items": [
+      {
+        "product_id": "P002",
+        "product_name": "Surface Pro",
+        "brand": "Microsoft",
+        "price": 38000,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "V003",
+    "inv_date": "09/09/60",
+    "customer": {
+      "customer_id": "C93",
+      "name": "Somchai",
+      "tel": "+6694-994-3456",
+      "address": {
+        "house_id": 567,
+        "road": "Asia",
+        "city": "Phuket"
+      }
+    },
+    "items": [
+      {
+        "product_id": "P001",
+        "product_name": "iPhone",
+        "brand": "Apple",
+        "price": 45000,
+        "quantity": 2
+      },
+      {
+        "product_id": "P002",
+        "product_name": "Surface Pro",
+        "brand": "Microsoft",
+        "price": 38000,
+        "quantity": 3
+      },
+      {
+        "product_id": "P004",
+        "product_name": "Galaxy Tab",
+        "brand": "Samsung",
+        "price": 12000,
+        "quantity": 1
+      },
+      {
+        "product_id": "P003",
+        "product_name": "iPad",
+        "brand": "Apple",
+        "price": 22000,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "_id": "V004",
+    "inv_date": "17/08/61",
+    "customer": {
+      "customer_id": "C56",
+      "name": "Thana",
+      "tel": "+6677-434-9761",
+      "address": {
+        "house_id": 12,
+        "road": "Rama IX",
+        "city": "Bangkok"
+      }
+    },
+    "items": [
+      {
+        "product_id": "P002",
+        "product_name": "Surface Pro",
+        "brand": "Microsoft",
+        "price": 38000,
+        "quantity": 2
+      },
+      {
+        "product_id": "P004",
+        "product_name": "Galaxy Tab",
+        "brand": "Samsung",
+        "price": 12000,
+        "quantity": 1
+      }
+    ]
+  }
+]

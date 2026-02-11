@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "C01",
+    "students": [
+      { "studentID": "S001", "studentName": "Khim", "grade": "A" },
+      { "studentID": "S002", "studentName": "Alex", "grade": "A" },
+      { "studentID": "S003", "studentName": "Tommy", "grade": "B" }
+    ]
+  },
+  {
+    "_id": "C02",
+    "students": [
+      { "studentID": "S001", "studentName": "Khim", "grade": "B" },
+      { "studentID": "S002", "studentName": "Alex", "grade": "C" }
+    ]
+  },
+  {
+    "_id": "C04",
+    "students": [{ "studentID": "S002", "studentName": "Alex", "grade": "C" }]
+  }
+]

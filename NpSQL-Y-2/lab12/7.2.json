@@ -1,0 +1,134 @@
+{
+  "products": [
+    {
+      "_id": "P001",
+      "name": "iPhone",
+      "brand": "Apple",
+      "price": 45000
+    },
+    {
+      "_id": "P002",
+      "name": "Surface Pro",
+      "brand": "Microsoft",
+      "price": 38000
+    },
+    {
+      "_id": "P003",
+      "name": "iPad",
+      "brand": "Apple",
+      "price": 22000
+    },
+    {
+      "_id": "P004",
+      "name": "Galaxy Tab",
+      "brand": "Samsung",
+      "price": 12000
+    }
+  ],
+  "invoices": [
+    {
+      "_id": "V001",
+      "inv_date": "20/05/62",
+      "customer_id": "C40",
+      "name": "Aye Mi",
+      "tel": "+6693-908-5236",
+      "address": {
+        "house_id": 70,
+        "road": "Rama II",
+        "city": "Bangkok"
+      }
+    },
+    {
+      "_id": "V002",
+      "inv_date": "12/11/62",
+      "customer_id": "C16",
+      "name": "Takashi",
+      "tel": "+6677-101-3758",
+      "address": {
+        "house_id": 482,
+        "road": "Rama IV",
+        "city": "Bangkok"
+      }
+    },
+    {
+      "_id": "V003",
+      "inv_date": "09/09/60",
+      "customer_id": "C93",
+      "name": "Somchai",
+      "tel": "+6694-994-3456",
+      "address": {
+        "house_id": 567,
+        "road": "Asia",
+        "city": "Phuket"
+      }
+    },
+    {
+      "_id": "V004",
+      "inv_date": "17/08/61",
+      "customer_id": "C56",
+      "name": "Thana",
+      "tel": "+6677-434-9761",
+      "address": {
+        "house_id": 12,
+        "road": "Rama IX",
+        "city": "Bangkok"
+      }
+    }
+  ],
+  "sales": [
+    {
+      "_id": "S001",
+      "invoice_id": "V001",
+      "product_id": "P001",
+      "quantity": 1
+    },
+    {
+      "_id": "S002",
+      "invoice_id": "V001",
+      "product_id": "P003",
+      "quantity": 2
+    },
+    {
+      "_id": "S003",
+      "invoice_id": "V002",
+      "product_id": "P002",
+      "quantity": 1
+    },
+    {
+      "_id": "S004",
+      "invoice_id": "V003",
+      "product_id": "P001",
+      "quantity": 2
+    },
+    {
+      "_id": "S005",
+      "invoice_id": "V003",
+      "product_id": "P002",
+      "quantity": 3
+    },
+    {
+      "_id": "S006",
+      "invoice_id": "V003",
+      "product_id": "P004",
+      "quantity": 1
+    },
+    {
+      "_id": "S007",
+      "invoice_id": "V003",
+      "product_id": "P003",
+      "quantity": 1
+    },
+    {
+      "_id": "S008",
+      "invoice_id": "V004",
+      "product_id": "P002",
+      "quantity": 2
+    },
+    {
+      "_id": "S009",
+      "invoice_id": "V004",
+      "product_id": "P004",
+      "quantity": 1
+    }
+  ]
+}
