@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+require("dotenv").config();
 
 async function loginITKMITL(username, password) {
   const browser = await puppeteer.launch({
@@ -57,7 +58,7 @@ async function loginITKMITL(username, password) {
 }
 
 async function main() {
-  const data = await loginITKMITL("it67070119", "BRLrsv45");
+  const data = await loginITKMITL(process.env.USERNAME, process.env.PASSWORD);
   console.log(data);
 }
 
