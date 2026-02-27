@@ -1,0 +1,10 @@
+id,title,genre,rating,year
+1, The Matrix, Sci-Fi, 5.0, 1999
+2, Inception, Sci-Fi, 4.9, 2010
+3, Broken Movie, , 2.0, 2020       
+4, Bad Rating, Action, 100, 2021    
+5, Titanic, Drama, 4.5, 1997
+6, Avengers, Action, 4.8, 2012
+7, Short Line, Action              
+8, Interstellar, Sci-Fi, 4.9, 2014
+      

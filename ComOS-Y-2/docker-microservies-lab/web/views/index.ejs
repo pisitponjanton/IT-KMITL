@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Form</title>
+</head>
+<body>
+  <h2>Add Student</h2>
+
+  <form method="POST" action="/add">
+    <input name="firstName" placeholder="First Name" required />
+    <input name="lastName" placeholder="Last Name" required />
+    <input name="studentId" placeholder="Student ID" required />
+    <button type="submit">Save</button>
+  </form>
+
+  <h3>Student List</h3>
+  <ul>
+    <% students.forEach(s => { %>
+      <li>
+        <%= s.firstName %> <%= s.lastName %> - <%= s.studentId %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
