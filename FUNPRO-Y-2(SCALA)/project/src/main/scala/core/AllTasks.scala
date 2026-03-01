@@ -1,22 +1,24 @@
 package core
 
-import model.{Record, RecordWithYearPercent}
+import model.*
 import scala.concurrent.{Future, ExecutionContext}
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import scala.util.Try
 
-object YearAggregation {
+object AllTasks {
 
-  private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm")
+  private val formatter =
+    DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm")
 
   private def extractYear(datetime: String): Int =
-    Try(LocalDateTime.parse(datetime.trim, formatter).getYear).getOrElse(0)
+    Try(LocalDateTime.parse(datetime.trim, formatter).getYear)
+      .getOrElse(0)
 
   private def safeTransform(
       r: Record,
       totalByYear: Map[Int, Long]
-  ): Either[String, RecordWithYearPercent] = {
+  ): Either[String, AllTasksRecord] = {
 
     val year = extractYear(r.createdAtdatetime)
 
@@ -29,38 +31,51 @@ object YearAggregation {
             .setScale(4, BigDecimal.RoundingMode.HALF_UP)
             .toDouble
 
+        val url =
+            r.id match {
+                case t if t.nonEmpty => s"https://www.sanook.com/news/${r.id}"
+                case _ => "Null"
+            }
+
+        val urlImage =
+          r.thumbnail match {
+            case t if t.nonEmpty => s"https:$t"
+            case _               => "Null"
+          }
+
         Right(
-          RecordWithYearPercent(
-            r.id,
-            r.title,
-            r.thumbnail,
-            r.slug,
-            r.primaryTag,
-            r.isShowComment,
-            r.createdAtdatetime,
-            r.description,
-            r.shareCount,
-            r.commentCount,
-            r.viewCount,
-            year,
-            total,
-            percentRounded
+          AllTasksRecord(
+            id = r.id,
+            title = r.title,
+            slug = r.slug,
+            primaryTag = r.primaryTag,
+            isShowComment = r.isShowComment,
+            createdAtdatetime = r.createdAtdatetime,
+            description = r.description,
+            shareCount = r.shareCount,
+            commentCount = r.commentCount,
+            viewCount = r.viewCount,
+            year = year,
+            totalByYear = total,
+            viewPercent = percentRounded,
+            url = url,
+            url_image = urlImage
           )
         )
+
       case _ =>
-        Left("Invalid year or total = 0")
+        Left("Invalid year or total")
     }
   }
 
-  def aggregateSeq(data: Seq[Record]): Seq[RecordWithYearPercent] = {
+  def runSeq(data: Seq[Record]): Seq[AllTasksRecord] = {
     val withYear = data.map(r => (r, extractYear(r.createdAtdatetime)))
 
     val totalByYear =
       withYear.groupBy(_._2)
-      .map { 
-        case (year, records) =>
+        .map { case (year, records) =>
           year -> records.map(_._1.viewCount).sum
-      }
+        }
 
     data.flatMap { r =>
       val result = safeTransform(r, totalByYear)
@@ -72,9 +87,9 @@ object YearAggregation {
     }
   }
 
-  def aggregateParallel(
+  def runParallel(
       data: Seq[Record]
-  )(using ec: ExecutionContext): Future[Seq[RecordWithYearPercent]] = {
+  )(using ec: ExecutionContext): Future[Seq[AllTasksRecord]] = {
 
     val cores = Runtime.getRuntime.availableProcessors()
     val chunkSize = Math.max(1, data.size / cores)
@@ -95,8 +110,11 @@ object YearAggregation {
     val futures =
       chunks.map { chunk =>
         Future {
+
           chunk.flatMap { r =>
-            val result = safeTransform(r, totalByYear)
+
+            val result =
+              safeTransform(r, totalByYear)
 
             result match {
               case Right(valid) => Seq(valid)
@@ -105,7 +123,6 @@ object YearAggregation {
           }
         }
       }
-
     val combined = Future.sequence(futures)
 
     combined.map { list =>

@@ -71,4 +71,12 @@ object Main extends App {
     parFunc = YearAggregation.aggregateParallel,
     data = data
   )
+
+  runBenchmark(
+    name = "All Tasks",
+    folder = "allTasks",
+    seqFunc = AllTasks.runSeq,
+    parFunc = AllTasks.runParallel,
+    data = data
+  )
 }
