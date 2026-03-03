@@ -5,6 +5,22 @@ import util.*
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
+// ฟังก์ชันสำหรับรัน benchmark เปรียบเทียบ
+// ระหว่างเวอร์ชัน Sequential และ Parallel
+//
+// รับ:
+// - name     : ชื่อ task สำหรับแสดงผล
+// - folder   : โฟลเดอร์สำหรับ export CSV
+// - seqFunc  : ฟังก์ชันแบบ sequential
+// - parFunc  : ฟังก์ชันแบบ parallel (Future)
+// - data     : ข้อมูล input (Seq[Record])
+//
+// ทำหน้าที่:
+// 1. วัดเวลา seqFunc
+// 2. วัดเวลา parFunc
+// 3. คำนวณ speedup
+// 4. แสดงผล benchmark
+// 5. export ผลลัพธ์เป็น CSV
 def runBenchmark[T <: Product](
     name: String,
     folder: String,
@@ -40,6 +56,12 @@ def runBenchmark[T <: Product](
   CsvWriter.writeCsv(folder, "output_parallel.csv", parResult)
 }
 
+// Entry point ของโปรแกรม
+// ทำหน้าที่:
+// 1. โหลดข้อมูลจากไฟล์
+// 2. แสดงจำนวน record ที่โหลดได้
+// 3. รัน benchmark เปรียบเทียบ Sequential vs Parallel
+//    สำหรับแต่ละ task ในระบบ
 object Main extends App {
 
   val data: Seq[Record] = DataLoader.load("data.csv")
