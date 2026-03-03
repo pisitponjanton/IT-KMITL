@@ -135,15 +135,6 @@ clearData/output_parallel.csv
 
 ---
 
-# ⚠ Limitations
-
-- measureFuture ใช้ Await (blocking)
-- Benchmark ควรรันหลายรอบเพื่อความแม่นยำ
-- ใช้ default thread pool
-- Path export เหมาะกับ development มากกว่า production
-
----
-
 # ▶ How to Run
 
 sbt run
