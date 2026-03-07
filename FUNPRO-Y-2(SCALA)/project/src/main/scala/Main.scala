@@ -70,29 +70,29 @@ object Main extends App {
   println(s"Total records loaded: ${data.size}")
   println("======================================\n")
 
-  runBenchmark(
-    name = "Clear Data",
-    folder = "clearData",
-    seqFunc = ClearData.clearSeq,
-    parFunc = ClearData.clearParallel,
-    data = data
-  )
+  // runBenchmark(
+  //   name = "Clear Data",
+  //   folder = "clearData",
+  //   seqFunc = ClearData.clearSeq,
+  //   parFunc = ClearData.clearParallel,
+  //   data = data
+  // )
 
-  runBenchmark(
-    name = "Add URL Column",
-    folder = "addUrlColumn",
-    seqFunc = AddUrlColumn.addSeq,
-    parFunc = AddUrlColumn.addParallel,
-    data = data
-  )
+  // runBenchmark(
+  //   name = "Add URL Column",
+  //   folder = "addUrlColumn",
+  //   seqFunc = AddUrlColumn.addSeq,
+  //   parFunc = AddUrlColumn.addParallel,
+  //   data = data
+  // )
 
-  runBenchmark(
-    name = "Year Aggregation",
-    folder = "yearAggregation",
-    seqFunc = YearAggregation.aggregateSeq,
-    parFunc = YearAggregation.aggregateParallel,
-    data = data
-  )
+  // runBenchmark(
+  //   name = "Year Aggregation",
+  //   folder = "yearAggregation",
+  //   seqFunc = YearAggregation.aggregateSeq,
+  //   parFunc = YearAggregation.aggregateParallel,
+  //   data = data
+  // )
 
   runBenchmark(
     name = "All Tasks",
